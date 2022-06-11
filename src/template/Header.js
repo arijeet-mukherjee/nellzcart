@@ -9,7 +9,6 @@ function Header(props) {
 
   const [openedDrawer, setOpenedDrawer] = useState(false)
   const state = useSelector((state) => state);
-  console.log(state.user.currentUser? state.user.currentUser : "ari");
   function toggleDrawer() {
     setOpenedDrawer(!openedDrawer);
   }

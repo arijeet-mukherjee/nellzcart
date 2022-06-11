@@ -5,10 +5,9 @@ import Landing from "./landing/Landing";
 import ProductList from "./products/ProductList";
 import Category from "./categories/categories";
 import SignInAndSignUpPage from "./signinsignup/sign-in-and-sign-up.component";
-import {selectCurrentUser} from "./redux/user/user.selectors"
+import { useSelector} from "react-redux";
 function App(props) {
-  const user = selectCurrentUser;
-  console.log(user);
+  const state = useSelector((state) => state);
   return (
     <Template>
       <Switch>
@@ -28,7 +27,7 @@ function App(props) {
             exact
             path="/signin"
             render={() =>
-              !props ? (
+              state.user.currentUser ? (
                 <Redirect to="/" />
               ) : (
                 <SignInAndSignUpPage />
