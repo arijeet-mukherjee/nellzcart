@@ -30,7 +30,7 @@ const util ={
         'consumer-device-id': generateString(14), 
         'consumer-nonce': generateString(14), 
         'Access-Control-Allow-Origin': '*',            
-        'consumer-ip': ''
+        'consumer-ip': '1.1.1.1'
     },
 }
 

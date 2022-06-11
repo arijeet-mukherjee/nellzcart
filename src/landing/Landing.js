@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import React, { useEffect } from "react";
 import  FormData  from "form-data";
+import { connect, useSelector } from "react-redux";
+import {selectCurrentUser} from "../redux/user/user.selectors";
 const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
 function generateString(length) {
@@ -30,13 +32,16 @@ var config = {
     'consumer-nonce': '', 
     'Access-Control-Allow-Origin': '*',
         
-    'consumer-ip': ''
+    'consumer-ip': '1.1.1.1'
   },
   data : formdata
 };
-function Landing() {
+function Landing(props) {
   const [categories , setCategories] = React.useState(null);
   //const [isLoading , setIsLoading] = React.useState(false);
+  const posts = useSelector((state) => state);
+  console.log(posts);
+
   React.useEffect(()=>{
       //setIsLoading(true);
       function getCategories(){
@@ -101,4 +106,4 @@ function Landing() {
   );
 }
 
-export default Landing;
+export default connect(null,{selectCurrentUser})(Landing);

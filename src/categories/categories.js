@@ -9,7 +9,7 @@ import Spinner from "../util/spinner";
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useLocation } from 'react-router-dom';
-
+import {selectCurrentUser} from "../redux/user/user.selectors"
 //const brands = ["Apple", "Samsung", "Google", "HTC"];
 
 //const manufacturers = ["HOCO", "Nillkin", "Remax", "Baseus"];
@@ -129,6 +129,8 @@ function FilterMenuLeft() {
 
 function ProductList() {
 
+ 
+
   const [viewType, setViewType] = useState({ grid: true });
 
   const [allProducts, setAllProducts] = React.useState(null);
@@ -153,6 +155,8 @@ function ProductList() {
   configCategories.headers["consumer-nonce"] = Util.generateString(14);
 
   function getallproducts(pagenumber) {
+     const user = selectCurrentUser;
+     console.log(user);
     if(pagenumber){
       config.data.page_number = pagenumber;
     }

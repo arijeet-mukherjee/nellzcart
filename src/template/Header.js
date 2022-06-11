@@ -2,10 +2,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Image from "./logo.webp";
-function Header() {
+import {setCurrentUser} from "../redux/user/user.actions";
+import {selectCurrentUser} from "../redux/user/user.selectors";
+import { connect , useSelector} from "react-redux";
+function Header(props) {
 
   const [openedDrawer, setOpenedDrawer] = useState(false)
-
+  const state = useSelector((state) => state);
+  console.log(state.user.currentUser? state.user.currentUser : "ari");
   function toggleDrawer() {
     setOpenedDrawer(!openedDrawer);
   }
@@ -58,17 +62,33 @@ function Header() {
                 <ul
                   className="dropdown-menu dropdown-menu-end"
                   aria-labelledby="userDropdown"
-                >
+                > {
+                  !state.user.currentUser?
+                  <>
                   <li>
-                    <Link to="/" className="dropdown-item" onClick={changeNav}>
+                    <Link to="/signin" className="dropdown-item" onClick={changeNav}>
                       Login
                     </Link>
                   </li>
                   <li>
-                    <Link to="/" className="dropdown-item" onClick={changeNav}>
+                    <Link to="/signin" className="dropdown-item" onClick={changeNav}>
                       Sign Up
                     </Link>
+                  </li>   
+                  </>
+                  :
+                  <>
+                  <li>
+                    <span className="dropdown-item">
+                      {state.user.currentUser.email}
+                    </span>
+                    <span className="dropdown-item">
+                      {state.user.currentUser.fullname}
+                    </span>
                   </li>
+                  </>
+                  }
+                                   
                 </ul>
               </li>
             </ul>
@@ -89,4 +109,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default connect(null,{selectCurrentUser})(Header);
