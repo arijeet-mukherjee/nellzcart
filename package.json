@@ -3,6 +3,9 @@
   "name": "react-ecommerce-nellzcart",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+  "node": "16.15.0"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
