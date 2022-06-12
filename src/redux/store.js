@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === "development") {
   middlewares.push(logger);
 }
 const persistedReducer = persistReducer(persistConfig, rootReducer)
-export const store = createStore(persistedReducer, composeEnhancers(applyMiddleware(...middlewares)));
+export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(...middlewares)));
 
 
 export const persistor = persistStore(store);
