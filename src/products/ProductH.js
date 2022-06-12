@@ -2,6 +2,9 @@ import Image from "../nillkin-case-1.jpg";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Util from "../util/util";
+import { connect } from "react-redux";
+
+import { addItem } from "../redux/cart/cart.actions";
 function ProductH(props) {
   const price = 10000;
   let percentOff;
@@ -54,7 +57,12 @@ function ProductH(props) {
                   }
                 </span>
                 <div className="mt-auto d-flex">
-                  <button className="btn btn-outline-dark ms-auto">
+                  < button className = "btn btn-outline-dark ms-auto"
+                  onClick = {
+                    () => {
+                      props.addItem(product_data);
+                    }
+                  } >
                     <FontAwesomeIcon icon={["fas", "cart-plus"]} /> Add to cart
                   </button>
                 </div>
@@ -66,5 +74,7 @@ function ProductH(props) {
     </div>
   );
 }
-
-export default ProductH;
+const mapDispatchToProps = (dispatch) => ({
+  addItem: (item) => dispatch(addItem(item)),
+});
+export default connect(null, mapDispatchToProps)(ProductH);

@@ -9,10 +9,9 @@ import Spinner from "../util/spinner";
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useLocation } from 'react-router-dom';
-import {selectCurrentUser} from "../redux/user/user.selectors"
-//const brands = ["Apple", "Samsung", "Google", "HTC"];
+import { connect } from "react-redux";
 
-//const manufacturers = ["HOCO", "Nillkin", "Remax", "Baseus"];
+import { addItem } from "../redux/cart/cart.actions";
 
 var categories = ["Security"];
 var categoriesData =[
@@ -155,8 +154,6 @@ function ProductList() {
   configCategories.headers["consumer-nonce"] = Util.generateString(14);
 
   function getallproducts(pagenumber) {
-     const user = selectCurrentUser;
-     console.log(user);
     if(pagenumber){
       config.data.page_number = pagenumber;
     }
@@ -412,4 +409,9 @@ function ProductList() {
   );
 }
 
-export default ProductList;
+const mapDispatchToProps = (dispatch) => ({
+  addItem: (item) => dispatch(addItem(item)),
+});
+
+
+export default connect(null, mapDispatchToProps)(ProductList);

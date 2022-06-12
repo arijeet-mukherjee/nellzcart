@@ -2,11 +2,16 @@ import Image from "../nillkin-case-1.jpg";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Util from "../util/util";
+import { connect } from "react-redux";
+
+import { addItem } from "../redux/cart/cart.actions";
 function Product(props) {
   const price = 10000;
   let percentOff;
   let offPrice = `${price}Ks`;
   var product_data = [];
+  
+  console.log(props)
   if (props.percentOff && props.percentOff > 0) {
     percentOff = (
       <div
@@ -48,7 +53,12 @@ function Product(props) {
           </h5>
           <p className="card-text text-center text-muted mb-0">${product_data ? (product_data.products_price) : 'products_price'}</p>
           <div className="d-grid d-block">
-            <button className="btn btn-outline-dark mt-3">
+            < button className = "btn btn-outline-dark mt-3"
+            onClick = {
+              () => {
+                props.addItem(product_data);
+              }
+            } >
               <FontAwesomeIcon icon={["fas", "cart-plus"]} /> Add to cart
             </button>
           </div>
@@ -57,5 +67,7 @@ function Product(props) {
     </div>
   );
 }
-
-export default Product;
+const mapDispatchToProps = (dispatch) => ({
+  addItem: (item) => dispatch(addItem(item)),
+});
+export default connect(null, mapDispatchToProps)(Product);

@@ -9,6 +9,9 @@ import Spinner from "../../util/spinner";
 import axios from "axios";
 import React, { useEffect } from "react";
 import ReactHtmlParser from 'react-html-parser'
+import { connect } from "react-redux";
+
+import { addItem } from "../../redux/cart/cart.actions";
 const iconPath =
   "M18.571 7.221c0 0.201-0.145 0.391-0.29 0.536l-4.051 3.951 0.96 5.58c0.011 0.078 0.011 0.145 0.011 0.223 0 0.29-0.134 0.558-0.458 0.558-0.156 0-0.313-0.056-0.446-0.134l-5.011-2.634-5.011 2.634c-0.145 0.078-0.29 0.134-0.446 0.134-0.324 0-0.469-0.268-0.469-0.558 0-0.078 0.011-0.145 0.022-0.223l0.96-5.58-4.063-3.951c-0.134-0.145-0.279-0.335-0.279-0.536 0-0.335 0.346-0.469 0.625-0.513l5.603-0.815 2.511-5.078c0.1-0.212 0.29-0.458 0.547-0.458s0.446 0.246 0.547 0.458l2.511 5.078 5.603 0.815c0.268 0.045 0.625 0.179 0.625 0.513z";
 const config = {
@@ -29,7 +32,7 @@ const config = {
     vendors_id: "",
   },
 };
-function ProductDetail() {
+function ProductDetail(props) {
   const location = useLocation()
   const pathname = location.pathname;
   const productId = pathname.split('/')[2];
@@ -159,12 +162,21 @@ function ProductDetail() {
 
             <div className="row g-3 mb-4">
               <div className="col">
-                <button className="btn btn-outline-dark py-2 w-100">
+                < button className = "btn btn-outline-dark py-2 w-100"
+                onClick = {
+                  () => {
+                    props.addItem(productDetail[0]);
+                  }
+                } >
                   Add to cart
                 </button>
               </div>
               <div className="col">
-                <button className="btn btn-dark py-2 w-100">Buy now</button>
+                <button className="btn btn-dark py-2 w-100"  onClick = {
+                  () => {
+                    props.addItem(productDetail[0]);
+                  }
+                }>Buy now</button>
               </div>
             </div>
 
@@ -236,5 +248,7 @@ function ProductDetail() {
     </div>
   );
 }
-
-export default ProductDetail;
+const mapDispatchToProps = (dispatch) => ({
+  addItem: (item) => dispatch(addItem(item)),
+});
+export default connect(null, mapDispatchToProps)(ProductDetail);
